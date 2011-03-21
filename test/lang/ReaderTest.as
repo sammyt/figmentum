@@ -1,4 +1,4 @@
-package  {
+package lang {
     
     import asunit.asserts.*;
     import asunit.framework.IAsync;
@@ -18,18 +18,17 @@ package  {
         public function returnsEmptySeq():void {
             var input:IInput = new StringInput("()");
             var reader:Reader = new Reader(input);
-            
             var out:Object = reader.read();
+            trace(out);
             assertNotNull(out);
-            
         }
         
         [Test]
         public function returnsSeq():void {
             var input:IInput = new StringInput("(a)");
             var reader:Reader = new Reader(input);
-            
             var out:Object = reader.read();
+            trace(out);
             assertNotNull(out);
         }
     }

@@ -5,7 +5,7 @@ package {
      * If you modify it and run this script, your
      * modifications will be lost!
      */
-    import ReaderTest;
+    import lang.ReaderTest;
     
     [Suite]
     public class AllTests {

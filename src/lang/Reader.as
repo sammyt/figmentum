@@ -29,7 +29,6 @@ public class Reader
                 readToken(_input);
             }
         }
-        
         return null;
     }
     
