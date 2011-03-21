@@ -4,29 +4,19 @@ package lang
 import utility.*;
 import flash.utils.Dictionary;
 
-public class Reader 
-{
-    private var _input:IInput;
-        
-    public function Reader(input:IInput) 
-    {
-        _input = input;
-    }
+public class Reader  {
     
-    public function read():Object
-    {
-        var char:uint = _input.nextCode();
+    public static function read(input:IInput):Object {
+        var char:uint = input.nextCode();
         
-        while(true)
-        {
+        while(true) {
             var reader:Function = macros[char] as Function;
-            if(reader != null)
-            {
-                return reader(_input);
+            if(reader != null) {
+                return reader(input);
             }
-            else
-            {
-                readToken(_input);
+            else {
+                input.backup();
+                return readToken(input);
             }
         }
         return null;
@@ -37,15 +27,42 @@ public class Reader
         Chars.LPAREN, function(input:IInput):Object { return readList(input, Chars.RPAREN);}
     )
     
-    public static function readList(input:IInput, endChar:uint):ISeq
-    {
-        return new Cons(null, null);
+    public static function readList(input:IInput, endChar:Number):ISeq {
+        var list:Array = readDelimitedList(Chars.RPAREN, input);
+        return new Cons(list, null);
     }
     
-    public static function readToken(input:IInput):Object
-    {
-        input.nextCode();
-        return "a";
+    public static function readToken(input:IInput):Object {
+        return input.nextCode();
+    }
+    
+    private static function readDelimitedList(endChar:Number, input:IInput):Array {
+        var list:Array = [];
+        
+        while(true) {
+            
+            var char:Number = input.nextCode();
+            
+            while(isWhiteSpace(char)) {
+                char = input.nextCode();
+            }
+            
+            if(char == endChar)
+    			break;
+    		
+    		if(isNaN(char))
+    		{
+    		    throw new Error("EOF");
+    		}
+            
+            input.backup();
+            list.push(read(input));
+        }
+        return list;
+    }
+    
+    private static function isWhiteSpace(char:Number):Boolean {
+        return (char == Chars.SPACE || char == Chars.COMMA);
     }
 }
 

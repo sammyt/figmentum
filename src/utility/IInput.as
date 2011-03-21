@@ -4,8 +4,9 @@ package utility
 public interface IInput
 {
 	function nextChar():String;
-	function nextCode():uint;
+	function nextCode():Number;
 	function get pos():int;
+	function backup():void;
 }
 
 }

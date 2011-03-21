@@ -17,8 +17,7 @@ package lang {
         [Test]
         public function returnsEmptySeq():void {
             var input:IInput = new StringInput("()");
-            var reader:Reader = new Reader(input);
-            var out:Object = reader.read();
+            var out:Object = Reader.read(input);
             trace(out);
             assertNotNull(out);
         }
@@ -26,10 +25,14 @@ package lang {
         [Test]
         public function returnsSeq():void {
             var input:IInput = new StringInput("(a)");
-            var reader:Reader = new Reader(input);
-            var out:Object = reader.read();
-            trace(out);
+            var out:Object = Reader.read(input);
             assertNotNull(out);
+            assertTrue(out is ISeq);
+            
+            var seq:ISeq = ISeq(out);
+            
+            assertTrue(seq.first is Array);
+            assertTrue(seq.first.length == 1);
         }
     }
 }
