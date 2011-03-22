@@ -6,7 +6,8 @@ package lang {
     import flash.display.Sprite;
     
     import org.hamcrest.assertThat;
-    import org.hamcrest.core.isA;
+    import org.hamcrest.core.*;
+    import org.hamcrest.object.*;
     
     import utility.*;
     import lang.*;
@@ -24,17 +25,19 @@ package lang {
             var input:IInput = new StringInput("()");
             var out:Object = Reader.read(input);
             assertNotNull(out);
+            assertThat(out, isA(ISeq));
+            assertThat(out, equalTo(List.EMPTY_LIST));
         }
         
         [Test]
         public function returnsSeq():void {
-            var input:IInput = new StringInput("(a)");
+            var input:IInput = new StringInput("(a b c d)");
             var out:Object = Reader.read(input);
             assertNotNull(out);
-            assertThat(out, isA(ISeq));
+            assertThat(out, isA(List));
             
             var seq:ISeq = ISeq(out);
-            
+            trace(seq);
             
         }
     }

@@ -29,7 +29,7 @@ public class Reader  {
     
     public static function readList(input:IInput, endChar:Number):ISeq {
         var list:Array = readDelimitedList(Chars.RPAREN, input);
-        return new Cons(list, null);
+        return List.fromArray(list);
     }
     
     public static function readToken(input:IInput):Object {
