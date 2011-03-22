@@ -36,9 +36,16 @@ package lang {
             assertNotNull(out);
             assertThat(out, isA(List));
             
-            var seq:ISeq = ISeq(out);
-            trace(seq);
-            
+            var seq:ISeq = ISeq(out);   
+        }
+        
+        [Test]
+        public function returnsNestedSeq():void {
+            var input:IInput = new StringInput("(a (b c d))");
+            var out:Object = Reader.read(input);
+            assertNotNull(out);
+            assertThat(out, isA(List));
+            trace(out);
         }
     }
 }
