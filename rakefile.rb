@@ -55,6 +55,7 @@ library :asunit4
 mxmlc "bin/Seqro-test.swf" => :asunit4 do |t|
   t.input = "src/SeqroRunner.as"
   t.source_path << 'test'
+  t.library_path << 'lib/hamcrest/hamcrest-as3-only-1.1.3.swc'
   t.debug = true
 end
 
