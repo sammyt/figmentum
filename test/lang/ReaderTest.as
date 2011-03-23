@@ -47,6 +47,28 @@ package lang {
             assertThat(out, isA(List));
             trace(out);
         }
+        
+        [Test]
+        public function countSeq():void {
+            var input:IInput = new StringInput("(a c d)");
+            var out:Object = Reader.read(input);
+            assertNotNull(out);
+            assertThat(out, isA(List));
+            var list:List = List(out);
+            
+            assertThat(list.count, equalTo(3));
+        }
+        
+        [Test]
+        public function countNestedSeq():void {
+            var input:IInput = new StringInput("(a (b c d) (g) d)");
+            var out:Object = Reader.read(input);
+            assertNotNull(out);
+            assertThat(out, isA(List));
+            var list:List = List(out);
+            
+            assertThat(list.count, equalTo(4));
+        }
     }
 }
 
