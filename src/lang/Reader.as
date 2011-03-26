@@ -34,12 +34,8 @@ public class Reader  {
         Chars.LPAREN, function(input:IInput):Object { 
             return readList(input, Chars.RPAREN);
         },
-        Chars.COLON, function(input:IInput):String { 
-            return readSymbol(input);
-        },
-        Chars.SPEACH, function(input:IInput):String {
-            return readString(input);
-        }
+        Chars.COLON, readSymbol,
+        Chars.SPEACH, readString
     )
     
     public static function readNumber(input:IInput):Object {
