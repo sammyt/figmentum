@@ -26,10 +26,24 @@ public class Reader  {
         Chars.LPAREN, function(input:IInput):Object { 
             return readList(input, Chars.RPAREN);
         },
-        Chars.COLON, function(input:IInput):Object { 
+        Chars.COLON, function(input:IInput):String { 
             return readSymbol(input);
+        },
+        Chars.SPEACH, function(input:IInput):String {
+            return readString(input);
         }
     )
+    
+    public static function readString(input:IInput):Object {
+        input.backup();
+        
+        var word:String = input.charsMatching(/"(?:\.|(\\\")|[^\""\n])*"/);
+
+        if(word) {
+            return word;
+        }
+        return null;
+    }
     
     public static function readSymbol(input:IInput):Object {
         var word:String = input.charsMatching(/[\w-]+/);

@@ -11,10 +11,10 @@ public final class StringInput implements IInput {
     }
     
     public function charsMatching(re:RegExp):String {
-        var str:String = _input.substring(_pos);
+        var str:String = _input.substring(_pos - 1);
         var result:Array = str.match(re);
         
-        if(result.length) {
+        if(result && result.length) {
             var match:String = result[0];
             _pos += match.length;
             return match;    

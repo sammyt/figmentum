@@ -103,6 +103,35 @@ package lang {
             assertThat(rest.first.first, equalTo("and-another"));
             assertThat(rest.first.rest, equalTo(List.EMPTY_LIST));
         }
+        
+        [Test]
+        public function aString():void {
+            var input:IInput = new StringInput('"some content"');
+            var out:Object = Reader.read(input);
+            assertNotNull(out);
+            assertThat(out, isA(String));
+            assertThat(out, equalTo("\"some content\""));
+        }
+        
+        [Test]
+        public function moreStrings():void {
+            var input:IInput = new StringInput('("some content", "bacon")');
+            var out:Object = Reader.read(input);
+            assertNotNull(out);
+            assertThat(out, isA(List));
+            assertThat(out.first, equalTo("\"some content\""));
+            assertThat(out.rest.first, equalTo("\"bacon\""));
+        }
+        
+        [Test]
+        public function moreStringsAndSymbols():void {
+            var input:IInput = new StringInput('("some content", :sausage)');
+            var out:Object = Reader.read(input);
+            assertNotNull(out);
+            assertThat(out, isA(List));
+            assertThat(out.first, equalTo("\"some content\""));
+            assertThat(out.rest.first, equalTo("sausage"));
+        }
     }
 }
 
