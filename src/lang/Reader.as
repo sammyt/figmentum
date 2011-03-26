@@ -24,8 +24,23 @@ public class Reader  {
     
     
     private static const macros:Dictionary = dictFrom(
-        Chars.LPAREN, function(input:IInput):Object { return readList(input, Chars.RPAREN);}
+        Chars.LPAREN, function(input:IInput):Object { 
+            return readList(input, Chars.RPAREN);
+        },
+        Chars.COLON, function(input:IInput):Object { 
+            return readSymbol(input);
+        }
     )
+    
+    public static function readSymbol(input:IInput):Object {
+        var word:String = input.charsMatching(/[\w-]+/);
+        
+        if(word) {
+            return word;
+        }
+        
+        return null;
+    }
     
     public static function readList(input:IInput, endChar:Number):ISeq {
         var list:Array = readDelimitedList(Chars.RPAREN, input);

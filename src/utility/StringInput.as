@@ -10,6 +10,18 @@ public final class StringInput implements IInput {
         _pos = pos;
     }
     
+    public function charsMatching(re:RegExp):String {
+        var str:String = _input.substring(_pos);
+        var result:Array = str.match(re);
+        
+        if(result.length) {
+            var match:String = result[0];
+            _pos += match.length;
+            return match;    
+        }
+        return "";
+    }
+    
 	public function nextChar():String {
 	    var ch:String = _input.charAt(pos);
 	    _pos++;

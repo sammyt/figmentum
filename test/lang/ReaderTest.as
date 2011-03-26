@@ -45,7 +45,6 @@ package lang {
             var out:Object = Reader.read(input);
             assertNotNull(out);
             assertThat(out, isA(List));
-            trace(out);
         }
         
         [Test]
@@ -68,6 +67,26 @@ package lang {
             var list:List = List(out);
             
             assertThat(list.count, equalTo(4));
+        }
+        
+        [Test]
+        public function symbol():void {
+            var input:IInput = new StringInput(":something");
+            var out:Object = Reader.read(input);
+            assertNotNull(out);
+            assertThat(out, isA(String));
+            assertThat(out, equalTo("something"));
+        }
+        
+        [Test]
+        public function symbolInSeq():void {
+            var input:IInput = new StringInput("(:something)");
+            var out:Object = Reader.read(input);
+            assertNotNull(out);
+            assertThat(out, isA(List));
+            var list:List = List(out);
+            trace(list);
+            assertThat(list.first, equalTo("something"));
         }
     }
 }
