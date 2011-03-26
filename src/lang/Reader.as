@@ -8,7 +8,6 @@ public class Reader  {
     
     public static function read(input:IInput):Object {
         var char:uint = input.nextCode();
-        
         while(true) {
             var reader:Function = macros[char] as Function;
             if(reader != null) {
@@ -38,7 +37,6 @@ public class Reader  {
         if(word) {
             return word;
         }
-        
         return null;
     }
     

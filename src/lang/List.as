@@ -41,8 +41,10 @@ public class List implements ISeq {
 	    
 	    var list:List = EMPTY_LIST;
 	    
-	    for each(var item:Object in source) {
-	        list = list.cons(item) as List;
+	    var i:int = source.length - 1;
+	    while(i > -1) {
+	        list = list.cons(source[i]) as List;
+	        --i;
 	    }
 	    
 	    return list;

@@ -20,6 +20,7 @@ package lang {
         [Inject]
         public var context:Sprite;
         
+        
         [Test]
         public function returnsEmptySeq():void {
             var input:IInput = new StringInput("()");
@@ -85,8 +86,19 @@ package lang {
             assertNotNull(out);
             assertThat(out, isA(List));
             var list:List = List(out);
-            trace(list);
-            assertThat(list.first, equalTo("something"));
+            assertThat(list.first, equalTo("something"));   
+        }
+        
+        [Test]
+        public function symbolInLongerSeq():void {
+            var input:IInput = new StringInput("(:something :other (:and-another))");
+            var out:Object = Reader.read(input);
+            assertNotNull(out);
+            assertThat(out, isA(List));
+            var list:List = List(out);
+            assertThat(list.first, equalTo("something"));   
+            assertThat(list.rest.first, equalTo("other"));
+            assertThat(list.rest.rest.first.first, equalTo("and-another"));
         }
     }
 }
