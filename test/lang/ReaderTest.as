@@ -132,6 +132,44 @@ package lang {
             assertThat(out.first, equalTo("\"some content\""));
             assertThat(out.rest.first, equalTo("sausage"));
         }
+        
+        [Test]
+        public function aNumber():void {
+            var input:IInput = new StringInput("4");
+            var out:Object = Reader.read(input);
+            assertNotNull(out);
+            assertThat(out, isA(Number));
+            assertThat(out, equalTo(4));
+        }
+        
+        [Test]
+        public function aDecimalNumber():void {
+            var input:IInput = new StringInput("4.989");
+            var out:Object = Reader.read(input);
+            assertNotNull(out);
+            assertThat(out, isA(Number));
+            assertThat(out, equalTo(4.989));
+        }
+        
+        [Test]
+        public function nestedNumberes():void {
+            var input:IInput = new StringInput("(4.989 55)");
+            var out:Object = Reader.read(input);
+            assertNotNull(out);
+            assertThat(out, isA(List));
+            assertThat(out.first, equalTo(4.989));
+            assertThat(out.rest.first, equalTo(55));
+        }
+        
+        [Test]
+        public function moreNestedNumberes():void {
+            var input:IInput = new StringInput("(4.989 (:woo))");
+            var out:Object = Reader.read(input);
+            assertNotNull(out);
+            assertThat(out, isA(List));
+            assertThat(out.first, equalTo(4.989));
+            assertThat(out.rest.first.first, equalTo("woo"));
+        }
     }
 }
 

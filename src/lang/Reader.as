@@ -7,9 +7,14 @@ import flash.utils.Dictionary;
 public class Reader  {
     
     public static function read(input:IInput):Object {
-        var char:uint = input.nextCode();
+        var code:uint = input.nextCode();
         while(true) {
-            var reader:Function = macros[char] as Function;
+            
+            if(isNumber(code)) {
+                return readNumber(input);
+            }
+            
+            var reader:Function = macros[code] as Function;
             if(reader != null) {
                 return reader(input);
             }
@@ -21,8 +26,11 @@ public class Reader  {
         return null;
     }
     
+    public static function isNumber(code:uint):Boolean {
+        return code >= 48 && code <= 57;
+    }
     
-    private static const macros:Dictionary = dictFrom(
+    public static const macros:Dictionary = dictFrom(
         Chars.LPAREN, function(input:IInput):Object { 
             return readList(input, Chars.RPAREN);
         },
@@ -33,6 +41,17 @@ public class Reader  {
             return readString(input);
         }
     )
+    
+    public static function readNumber(input:IInput):Object {
+        input.backup();
+        
+        var digits:String = input.charsMatching(/[0-9]+(?:\.[0-9]*)?/);
+
+        if(digits) {
+            return Number(digits);
+        }
+        return null;
+    }
     
     public static function readString(input:IInput):Object {
         input.backup();
