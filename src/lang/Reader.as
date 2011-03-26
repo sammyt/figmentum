@@ -31,9 +31,9 @@ public class Reader  {
     }
     
     public static const macros:Dictionary = dictFrom(
-        Chars.LPAREN, function(input:IInput):Object { 
-            return readList(input, Chars.RPAREN);
-        },
+        Chars.LPAREN, readList,
+        Chars.LGULL, readMap,
+        Chars.LBRACE, readVector,
         Chars.COLON, readSymbol,
         Chars.SPEACH, readString
     )
@@ -69,8 +69,18 @@ public class Reader  {
         return null;
     }
     
-    public static function readList(input:IInput, endChar:Number):ISeq {
+    public static function readList(input:IInput):ISeq {
         var list:Array = readDelimitedList(Chars.RPAREN, input);
+        return List.fromArray(list);
+    }
+    
+    public static function readMap(input:IInput):ISeq {
+        var list:Array = readDelimitedList(Chars.RGULL, input);
+        return List.fromArray(list);
+    }
+    
+    public static function readVector(input:IInput):ISeq {
+        var list:Array = readDelimitedList(Chars.RBRACE, input);
         return List.fromArray(list);
     }
     
