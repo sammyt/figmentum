@@ -92,8 +92,7 @@ public class Reader  {
             if(char == endChar)
     			break;
     		
-    		if(isNaN(char))
-    		{
+    		if(isNaN(char)) {
     		    throw new Error("EOF");
     		}
             
