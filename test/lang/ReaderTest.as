@@ -98,7 +98,10 @@ package lang {
             var list:List = List(out);
             assertThat(list.first, equalTo("something"));   
             assertThat(list.rest.first, equalTo("other"));
-            assertThat(list.rest.rest.first.first, equalTo("and-another"));
+            
+            var rest:ISeq = list.rest.rest;
+            assertThat(rest.first.first, equalTo("and-another"));
+            assertThat(rest.first.rest, equalTo(List.EMPTY_LIST));
         }
     }
 }
