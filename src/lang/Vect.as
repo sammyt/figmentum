@@ -1,7 +1,7 @@
 package lang
 {
 
-public class Vect implements ISeq {
+public final class Vect implements ISeq {
 	
 	private var source:Array;
 	

@@ -1,7 +1,7 @@
 package lang
 {
 
-public class List implements ISeq {
+public final class List implements ISeq {
 	public static const EMPTY_LIST:List = new List(null, null);
 	
 	private var _first:Object;

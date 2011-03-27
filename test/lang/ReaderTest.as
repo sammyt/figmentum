@@ -189,6 +189,12 @@ package lang {
             trace(out);
         }
         
+        [Test]
+        public function demo():void {
+            for(var i:int = 100; i > -1; i--) {
+                trace(i & 0x01f);
+            }
+        }
     }
 }
 
