@@ -36,7 +36,7 @@ public class Reader  {
         Chars.LBRACE, readVector,
         Chars.COLON, readSymbol,
         Chars.SPEACH, readString
-    )
+    );
     
     public static function readNumber(input:IInput):Object {
         input.backup();
@@ -81,7 +81,7 @@ public class Reader  {
     
     public static function readVector(input:IInput):ISeq {
         var list:Array = readDelimitedList(Chars.RBRACE, input);
-        return List.fromArray(list);
+        return Vect.fromArray(list);
     }
     
     public static function readToken(input:IInput):Object {

@@ -170,6 +170,25 @@ package lang {
             assertThat(out.first, equalTo(4.989));
             assertThat(out.rest.first.first, equalTo("woo"));
         }
+        
+        [Test]
+        public function vector():void {
+            var input:IInput = new StringInput("[]");
+            var out:Object = Reader.read(input);
+            assertNotNull(out);
+            assertThat(out, isA(Vect));   
+        }
+        
+        [Test]
+        public function vectorWithContent():void {
+            var input:IInput = new StringInput("[:a :b]");
+            var out:Object = Reader.read(input);
+            assertNotNull(out);
+            assertThat(out, isA(Vect));
+            assertThat(out.count, equalTo(2));
+            trace(out);
+        }
+        
     }
 }
 
