@@ -192,7 +192,7 @@ package lang {
         [Test]
         public function demo():void {
             for(var i:int = 100; i > -1; i--) {
-                trace(i & 0x01f);
+                trace(i & 31, 0x01f); // 11111 in binary
             }
         }
     }
