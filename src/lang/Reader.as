@@ -76,7 +76,7 @@ public class Reader  {
     
     public static function readMap(input:IInput):ISeq {
         var list:Array = readDelimitedList(Chars.RGULL, input);
-        return List.fromArray(list);
+        return Map.fromArray(list);
     }
     
     public static function readVector(input:IInput):ISeq {

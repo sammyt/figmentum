@@ -186,7 +186,14 @@ package lang {
             assertNotNull(out);
             assertThat(out, isA(Vect));
             assertThat(out.count, equalTo(2));
-            trace(out);
+        }
+        
+        [Test]
+        public function readsMap():void {
+            var input:IInput = new StringInput("{}");
+            var out:Object = Reader.read(input);
+            assertNotNull(out);
+            assertThat(out, isA(Map));
         }
         
         [Test]
