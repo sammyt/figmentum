@@ -194,6 +194,7 @@ package lang {
             var out:Object = Reader.read(input);
             assertNotNull(out);
             assertThat(out, isA(Map));
+            assertThat(out, equalTo(Map.EMPTY_MAP));
         }
         
         [Test]

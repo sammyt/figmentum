@@ -70,18 +70,15 @@ public class Reader  {
     }
     
     public static function readList(input:IInput):ISeq {
-        var list:Array = readDelimitedList(Chars.RPAREN, input);
-        return List.fromArray(list);
+        return List.fromArray(readDelimitedList(Chars.RPAREN, input));
     }
     
     public static function readMap(input:IInput):ISeq {
-        var list:Array = readDelimitedList(Chars.RGULL, input);
-        return Map.fromArray(list);
+        return Map.fromArray(readDelimitedList(Chars.RGULL, input));
     }
     
     public static function readVector(input:IInput):ISeq {
-        var list:Array = readDelimitedList(Chars.RBRACE, input);
-        return Vect.fromArray(list);
+        return Vect.fromArray(readDelimitedList(Chars.RBRACE, input));
     }
     
     public static function readToken(input:IInput):Object {
