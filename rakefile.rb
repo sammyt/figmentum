@@ -26,6 +26,7 @@ require 'asunit4'
 ##############################
 # Debug
 
+
 # Compile the debug swf
 mxmlc "bin/Seqro-debug.swf" do |t|
   t.input = "src/Seqro.as"
@@ -41,6 +42,8 @@ flashplayer :run => "bin/Seqro-debug.swf"
 compc "bin/Seqro.swc" do |t|
   t.input_class = "Seqro"
   t.source_path << 'src'
+  t.library_path << 'lib/hamcrest/hamcrest-as3-only-1.1.3.swc'
+  t.library_path << 'lib/leafy/Leafy.swc'
 end
 
 desc "Compile the SWC file"
@@ -56,6 +59,7 @@ mxmlc "bin/Seqro-test.swf" => :asunit4 do |t|
   t.input = "src/SeqroRunner.as"
   t.source_path << 'test'
   t.library_path << 'lib/hamcrest/hamcrest-as3-only-1.1.3.swc'
+  t.library_path << 'lib/leafy/Leafy.swc'
   t.debug = true
 end
 
