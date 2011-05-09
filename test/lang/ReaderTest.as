@@ -11,6 +11,7 @@ package lang {
     
     import utility.*;
     import lang.*;
+    import leafy.*;
 
     public class ReaderTest {
 
@@ -27,7 +28,7 @@ package lang {
             var out:Object = Reader.read(input);
             assertNotNull(out);
             assertThat(out, isA(ISeq));
-            assertThat(out, equalTo(List.EMPTY_LIST));
+            assertThat(out.count, equalTo(0));
         }
         
         [Test]
@@ -35,7 +36,7 @@ package lang {
             var input:IInput = new StringInput("(a b c d)");
             var out:Object = Reader.read(input);
             assertNotNull(out);
-            assertThat(out, isA(List));
+            assertThat(out, isA(ILinkedList));
             
             var seq:ISeq = ISeq(out);   
         }
@@ -45,7 +46,7 @@ package lang {
             var input:IInput = new StringInput("(a (b c d))");
             var out:Object = Reader.read(input);
             assertNotNull(out);
-            assertThat(out, isA(List));
+            assertThat(out, isA(ILinkedList));
         }
         
         [Test]
@@ -53,8 +54,8 @@ package lang {
             var input:IInput = new StringInput("(a c d)");
             var out:Object = Reader.read(input);
             assertNotNull(out);
-            assertThat(out, isA(List));
-            var list:List = List(out);
+            assertThat(out, isA(ILinkedList));
+            var list:ILinkedList = ILinkedList(out);
             
             assertThat(list.count, equalTo(3));
         }
@@ -64,8 +65,8 @@ package lang {
             var input:IInput = new StringInput("(a (b c d) (g) d)");
             var out:Object = Reader.read(input);
             assertNotNull(out);
-            assertThat(out, isA(List));
-            var list:List = List(out);
+            assertThat(out, isA(ILinkedList));
+            var list:ILinkedList = ILinkedList(out);
             
             assertThat(list.count, equalTo(4));
         }
@@ -84,8 +85,8 @@ package lang {
             var input:IInput = new StringInput("(:something)");
             var out:Object = Reader.read(input);
             assertNotNull(out);
-            assertThat(out, isA(List));
-            var list:List = List(out);
+            assertThat(out, isA(ILinkedList));
+            var list:ILinkedList = ILinkedList(out);
             assertThat(list.first, equalTo("something"));   
         }
         
@@ -94,14 +95,14 @@ package lang {
             var input:IInput = new StringInput("(:something :other (:and-another))");
             var out:Object = Reader.read(input);
             assertNotNull(out);
-            assertThat(out, isA(List));
-            var list:List = List(out);
+            assertThat(out, isA(ILinkedList));
+            var list:ILinkedList = ILinkedList(out);
             assertThat(list.first, equalTo("something"));   
             assertThat(list.rest.first, equalTo("other"));
             
             var rest:ISeq = list.rest.rest;
             assertThat(rest.first.first, equalTo("and-another"));
-            assertThat(rest.first.rest, equalTo(List.EMPTY_LIST));
+            assertThat(rest.first.rest.count, equalTo(0));
         }
         
         [Test]
@@ -118,7 +119,7 @@ package lang {
             var input:IInput = new StringInput('("some content", "bacon")');
             var out:Object = Reader.read(input);
             assertNotNull(out);
-            assertThat(out, isA(List));
+            assertThat(out, isA(ILinkedList));
             assertThat(out.first, equalTo("\"some content\""));
             assertThat(out.rest.first, equalTo("\"bacon\""));
         }
@@ -128,7 +129,7 @@ package lang {
             var input:IInput = new StringInput('("some content", :sausage)');
             var out:Object = Reader.read(input);
             assertNotNull(out);
-            assertThat(out, isA(List));
+            assertThat(out, isA(ILinkedList));
             assertThat(out.first, equalTo("\"some content\""));
             assertThat(out.rest.first, equalTo("sausage"));
         }
@@ -156,7 +157,7 @@ package lang {
             var input:IInput = new StringInput("(4.989 55)");
             var out:Object = Reader.read(input);
             assertNotNull(out);
-            assertThat(out, isA(List));
+            assertThat(out, isA(ILinkedList));
             assertThat(out.first, equalTo(4.989));
             assertThat(out.rest.first, equalTo(55));
         }
@@ -166,7 +167,7 @@ package lang {
             var input:IInput = new StringInput("(4.989 (:woo))");
             var out:Object = Reader.read(input);
             assertNotNull(out);
-            assertThat(out, isA(List));
+            assertThat(out, isA(ILinkedList));
             assertThat(out.first, equalTo(4.989));
             assertThat(out.rest.first.first, equalTo("woo"));
         }
@@ -176,7 +177,7 @@ package lang {
             var input:IInput = new StringInput("[]");
             var out:Object = Reader.read(input);
             assertNotNull(out);
-            assertThat(out, isA(Vect));   
+            assertThat(out, isA(IVect));   
         }
         
         [Test]
@@ -184,7 +185,7 @@ package lang {
             var input:IInput = new StringInput("[:a :b]");
             var out:Object = Reader.read(input);
             assertNotNull(out);
-            assertThat(out, isA(Vect));
+            assertThat(out, isA(IVect));
             assertThat(out.count, equalTo(2));
         }
         
@@ -193,8 +194,8 @@ package lang {
             var input:IInput = new StringInput("{}");
             var out:Object = Reader.read(input);
             assertNotNull(out);
-            assertThat(out, isA(Map));
-            assertThat(out, equalTo(Map.EMPTY_MAP));
+            assertThat(out, isA(IMap));
+            assertThat(out.count, equalTo(0));
         }
         
         [Test]

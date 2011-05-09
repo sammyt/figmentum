@@ -1,6 +1,7 @@
 package lang 
 {
 
+import leafy.*;
 import utility.*;
 import flash.utils.Dictionary;
 
@@ -70,15 +71,15 @@ public class Reader  {
     }
     
     public static function readList(input:IInput):ISeq {
-        return List.fromArray(readDelimitedList(Chars.RPAREN, input));
+        return PLinkedList.fromArray(readDelimitedList(Chars.RPAREN, input));
     }
     
     public static function readMap(input:IInput):ISeq {
-        return Map.fromArray(readDelimitedList(Chars.RGULL, input));
+        return PMap.fromArray(readDelimitedList(Chars.RGULL, input));
     }
     
     public static function readVector(input:IInput):ISeq {
-        return Vect.fromArray(readDelimitedList(Chars.RBRACE, input));
+        return PVect.fromArray(readDelimitedList(Chars.RBRACE, input));
     }
     
     public static function readToken(input:IInput):Object {
