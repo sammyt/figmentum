@@ -199,10 +199,13 @@ package lang {
         }
         
         [Test]
-        public function demo():void {
-            for(var i:int = 100; i > -1; i--) {
-                trace(i & 31, 0x01f); // 11111 in binary
-            }
+        public function readsMapWithValues():void {
+            var input:IInput = new StringInput("{:a 1 :b 2 :c 3}");
+            var out:ISeq = Reader.read(input) as ISeq;
+            assertNotNull(out);
+            assertThat(out, isA(IMap));
+            assertThat(out.count, equalTo(3));
+            
         }
     }
 }
