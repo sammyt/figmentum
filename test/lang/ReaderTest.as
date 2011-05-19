@@ -205,7 +205,6 @@ package lang {
             assertNotNull(out);
             assertThat(out, isA(IMap));
             assertThat(out.count, equalTo(3));
-            
         }
     }
 }

@@ -70,15 +70,15 @@ public class Reader  {
         return null;
     }
     
-    public static function readList(input:IInput):ISeq {
+    public static function readList(input:IInput):ILinkedList {
         return PLinkedList.fromArray(readDelimitedList(Chars.RPAREN, input));
     }
     
-    public static function readMap(input:IInput):ISeq {
+    public static function readMap(input:IInput):IMap {
         return PMap.fromArray(readDelimitedList(Chars.RGULL, input));
     }
     
-    public static function readVector(input:IInput):ISeq {
+    public static function readVector(input:IInput):IVect {
         return PVect.fromArray(readDelimitedList(Chars.RBRACE, input));
     }
     
