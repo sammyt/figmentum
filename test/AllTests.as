@@ -5,11 +5,12 @@ package {
      * If you modify it and run this script, your
      * modifications will be lost!
      */
-    import lang.ReaderTest;
+    import lang.*;
     
     [Suite]
     public class AllTests {
-        public var readerTest:ReaderTest;   
+        public var readerTest:ReaderTest;
+        public var interpreterTest:InterpreterTest;
     }
 }
 
