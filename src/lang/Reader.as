@@ -21,7 +21,7 @@ public class Reader  {
             }
             else {
                 input.backup();
-                return readToken(input);
+                return readSymbol(input);
             }
         }
         return null;
@@ -35,7 +35,7 @@ public class Reader  {
         Chars.LPAREN, readList,
         Chars.LGULL, readMap,
         Chars.LBRACE, readVector,
-        Chars.COLON, readSymbol,
+        Chars.COLON, readKeyword,
         Chars.SPEACH, readString
     );
     
@@ -68,6 +68,10 @@ public class Reader  {
             return word;
         }
         return null;
+    }
+    
+    public static function readKeyword(input:IInput):Object {
+        return ":" + readSymbol(input);
     }
     
     public static function readList(input:IInput):ILinkedList {
