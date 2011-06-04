@@ -55,9 +55,44 @@ package lang  {
             
             assertThat(ans, isA(Ref));
             assertThat(ans.value, isA(IMap));
+            assertThat(ans.name, equalTo("thing"));
             
             var map:IMap = ans.value as IMap;
             assertThat(map.at(":a"), equalTo(1));
+        }
+        
+        [Test]
+        public function fn():void {
+            var form:* = Reader.read(new StringInput("(fn [] ())"));
+            var ans:* = instance.eval(form);
+            
+            assertThat(ans, isA(IFn));
+            var res:Object = ans.call();
+            assertThat(res, isA(ILinkedList));
+            assertThat(res.count, equalTo(0));
+        }
+        
+        [Test]
+        public function fnStr():void {
+            var form:* = Reader.read(new StringInput("(fn [] \"umm\")"));
+            var ans:* = instance.eval(form);
+            
+            assertThat(ans, isA(IFn));
+            var res:Object = ans.call();
+            assertThat(res, isA(String));
+            assertThat(res, equalTo("\"umm\""));
+        }
+        
+        [Test]
+        [Ignore]
+        public function fnArg():void {
+            var form:* = Reader.read(new StringInput("(fn [a] a)"));
+            var ans:* = instance.eval(form);
+            
+            assertThat(ans, isA(IFn));
+            var res:Object = ans.call(1);
+            assertThat(res, isA(Number));
+            assertThat(res, equalTo(1));
         }
     }
 }

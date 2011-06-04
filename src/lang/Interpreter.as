@@ -13,7 +13,6 @@ public class Interpreter  {
     );
     
     private static function findSpecial(seq:ISeq):Function {
-        trace("specials", seq.first);
         return specials[seq.first];
     }
     
@@ -22,7 +21,6 @@ public class Interpreter  {
     }
     
     private static function _eval(form:*):Object {
-        trace("expr", form);
         if(form is ISeq) {
             var special:Function = findSpecial(form);
             if(special != null) {
@@ -32,6 +30,9 @@ public class Interpreter  {
                 return form; 
             }
             if(form is IVect) {
+                return form;
+            }
+            if(form is ILinkedList) {
                 return form;
             }
             throw new Error("Seq fail" + form);
@@ -64,8 +65,15 @@ public class Interpreter  {
         return ref;
     }
     
-    private static function fnExpr(form:*):Object {    
-        return null;
+    private static function fnExpr(form:*):Object {
+        form = form.rest
+        var fn:Fn = new Fn();
+        fn.params = _eval(form.first) as IVect;
+        fn.apply = function(...args):* {
+            
+            return _eval(form.rest.first);
+        };
+        return fn;
     }
     
     private static function strExpr(value:String):Object {
